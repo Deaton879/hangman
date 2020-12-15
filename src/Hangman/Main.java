@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
 
+
 public class Main {
 
     /* ================================== PROGRAM CONSTANTS ================================== */
@@ -26,7 +27,7 @@ public class Main {
     private static final int MIN = 1;
     private static final int MID = 3;
     private static final int MAX = 4;
-    private static final int GUESS_MAX = 5;
+    private static final int GUESS_MAX = 6;
     private static final int WORD_MAX = 20;
 
     // Messages constants
@@ -69,6 +70,10 @@ public class Main {
     // Boolean to check if game has been won
     private static Boolean youWon = false;
 
+    //color strings
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String TEXT_RESET = "\u001B[0m";
+
     /**
      * The main Method
      * Purpose: Set up and play game(s) of Hangman
@@ -95,6 +100,8 @@ public class Main {
 
 
     }
+
+
 
     /**
      * The setupGame Method
@@ -279,7 +286,8 @@ public class Main {
         System.out.println("\n");
         fileRead();
         startRound.setContent("Current category: " + category + "\nAttempts remaining: " + attempt +
-                     "\n\nChoose a letter: ");
+                "\n\nChoose a letter: ");
+        gallows(attempt, TEXT_RESET);
     }
 
 
@@ -356,7 +364,93 @@ public class Main {
             }
             resolveGame();
         }
-        else System.out.println(GOODBYE.getContent());
+        else {
+            System.out.println(GOODBYE.getContent());
+            gallows(0, ANSI_RED);
+        }
+    }
+
+    /**
+     * The gallows method
+     * Purpose: Generates and prints a string picture of a gallows. Prints a different picture depending on the gusss num
+     * @param guesses
+     * @param color
+     */
+    private static void gallows(int guesses, String color){
+        String gallows = "";
+
+        if (guesses == 6){
+            gallows = "============\n" +
+                      " |         |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "  ==========";
+        }
+        else if (guesses == 5){
+            gallows = "============\n" +
+                      " |         |\n" +
+                      " 0         |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "  ==========";
+        }
+        else if (guesses == 4){
+            gallows = " ============\n" +
+                      " |          |\n" +
+                      " 0          |\n" +
+                      " |          |\n" +
+                      "            |\n" +
+                      "            |\n" +
+                      "            |\n" +
+                      "   ==========";
+        }
+        else if (guesses == 3){
+            gallows = "============\n" +
+                      " |         |\n" +
+                      " 0         |\n" +
+                      "/|         |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "  ==========";
+        }
+        else if (guesses == 2){
+            gallows = "============\n" +
+                      " |         |\n" +
+                      " 0         |\n" +
+                      "/|\\        |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "  ==========";
+        }
+        else if (guesses == 1){
+            gallows = "============\n" +
+                      " |         |\n" +
+                      " 0         |\n" +
+                      "/|\\        |\n" + "" +
+                      "/          |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "  ==========";
+        }
+        else if (guesses == 0){
+            gallows = "============\n" +
+                      " |         |\n" +
+                      " 0         |\n" +
+                      "/|\\        |\n" +
+                      "/ \\        |\n" +
+                      "           |\n" +
+                      "           |\n" +
+                      "  ==========";
+        }
+
+        System.out.println(color + gallows);
     }
 
 }
