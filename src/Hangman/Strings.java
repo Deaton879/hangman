@@ -26,4 +26,12 @@ public class Strings {
     /** Set new content */
     public void setContent(String content) { this.content = content; }
 
+    /**
+     * The getInfo method
+     * Purpose: Prints the objects variable values to the console
+     */
+    public void getInfo() {
+        System.out.println("Content: " + this.getContent());
+    }
+
 }

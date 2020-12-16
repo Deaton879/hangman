@@ -56,5 +56,13 @@ public class Words extends Strings {
     @Override
     public String getContent() { return super.getContent(); }
 
+    /**
+     * The getInfo method
+     * Purpose: Prints the objects variable values to the console
+     */
+    @Override
+    public void getInfo() {
+        System.out.println("Content: " + this.getContent() + "\nCategory: " + this.getCategory());
+    }
 }
 

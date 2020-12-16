@@ -77,9 +77,10 @@ public class Main {
     /**
      * The main Method
      * Purpose: Set up and play game(s) of Hangman
-     * Procedure 1)
-     *           2)
-     *           3)
+     * Procedure 1) Print the GREET message
+     *           2) Setup the game with the setupGame method
+     *           3) Run the game in a loop
+     *           4) Resolve game when done
      * @param args
      */
     public static void main(String[] args) {
@@ -106,16 +107,16 @@ public class Main {
     /**
      * The setupGame Method
      * Purpose: Set up various parts of the game so the player can play a new game of hangman
-     * Procedure: 1)
-     *            2)
-     *            3)
-     *            4)
-     *            5)
+     * Procedure: 1) Reset any previously used variables
+     *            2) Ask the user for a category to choose a word from
+     *            3) Choose a random word from the specified category by accessing the file associated with that category
+     *            4) Initialize arrays to hold the letters of the chosen word, and an array to hold blanks equal to the number of letters
      */
     private static void setupGame() {
         // Reset attempts if this is not the first game
         attempt = GUESS_MAX;
         choice = FLOOR;
+        youWon = false;
 
         // Prompt the user for a particular category and save their answer
         System.out.print(SELECT.getContent());
@@ -125,7 +126,6 @@ public class Main {
                 choice = input.nextInt();
                 if (choice < MIN || choice > MAX) {
                     System.out.print(SELECT.getError());
-                    input.next();
                 }
             } catch (InputMismatchException e) {
                 // Make sure the answer is type int
@@ -359,7 +359,7 @@ public class Main {
         // If answer is YES, set up a new game and run it.
         if (Pattern.compile(YES).matcher(answer).matches()) {
             setupGame();
-            while(attempt >= FLOOR) {
+            while(attempt >= FLOOR && !youWon) {
                 runGame();
             }
             resolveGame();

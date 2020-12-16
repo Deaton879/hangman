@@ -59,5 +59,12 @@ public class Messages extends Strings {
         this.error = error;
     }
 
-
+    /**
+     * The getInfo method
+     * Purpose: Prints the objects variable values to the console
+     */
+    @Override
+    public void getInfo() {
+        System.out.println("Content: " + this.getContent() + "Error: " + this.getError());
+    }
 }
